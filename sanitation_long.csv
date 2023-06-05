@@ -1,0 +1,518 @@
+,County,indicator,value
+0,BARINGO,Conventional Households,"141,877"
+1,BOMET,Conventional Households,"187,230"
+2,BUNGOMA,Conventional Households,"357,714"
+3,BUSIA,Conventional Households,"197,944"
+4,ELGEYO/MARAKWET,Conventional Households,"99,119"
+5,EMBU,Conventional Households,"182,427"
+6,GARISSA,Conventional Households,"138,940"
+7,HOMA BAY,Conventional Households,"260,290"
+8,ISIOLO,Conventional Households,"53,217"
+9,KAJIADO,Conventional Households,"313,218"
+10,KAKAMEGA,Conventional Households,"432,284"
+11,KERICHO,Conventional Households,"205,932"
+12,KIAMBU,Conventional Households,"792,333"
+13,KILIFI,Conventional Households,"297,990"
+14,KIRINYAGA,Conventional Households,"203,576"
+15,KISII,Conventional Households,"307,254"
+16,KISUMU,Conventional Households,"296,846"
+17,KITUI,Conventional Households,"261,814"
+18,KWALE,Conventional Households,"172,802"
+19,LAIKIPIA,Conventional Households,"145,776"
+20,LAMU,Conventional Households,"34,231"
+21,MACHAKOS,Conventional Households,"399,523"
+22,MAKUENI,Conventional Households,"243,979"
+23,MANDERA,Conventional Households,"123,954"
+24,MARSABIT,Conventional Households,"76,689"
+25,MERU,Conventional Households,"423,931"
+26,MIGORI,Conventional Households,"238,133"
+27,MOMBASA,Conventional Households,"376,295"
+28,MURANG'A,Conventional Households,"317,496"
+29,NAIROBI CITY,Conventional Households,"1,494,676"
+30,NAKURU,Conventional Households,"598,237"
+31,NANDI,Conventional Households,"199,040"
+32,NAROK,Conventional Households,"238,115"
+33,NYAMIRA,Conventional Households,"150,499"
+34,NYANDARUA,Conventional Households,"178,224"
+35,NYERI,Conventional Households,"244,564"
+36,SAMBURU,Conventional Households,"63,951"
+37,SIAYA,Conventional Households,"249,341"
+38,TAITA/TAVETA,Conventional Households,"94,468"
+39,TANA RIVER,Conventional Households,"66,984"
+40,THARAKA-NITHI,Conventional Households,"109,450"
+41,TRANS NZOIA,Conventional Households,"222,989"
+42,TURKANA,Conventional Households,"162,627"
+43,UASIN GISHU,Conventional Households,"301,110"
+44,VIHIGA,Conventional Households,"143,288"
+45,WAJIR,Conventional Households,"126,878"
+46,WEST POKOT,Conventional Households,"115,761"
+47,BARINGO,Main Sewer,0.3
+48,BOMET,Main Sewer,0.3
+49,BUNGOMA,Main Sewer,1.0
+50,BUSIA,Main Sewer,0.6
+51,ELGEYO/MARAKWET,Main Sewer,0.3
+52,EMBU,Main Sewer,2.2
+53,GARISSA,Main Sewer,5.2
+54,HOMA BAY,Main Sewer,1.1
+55,ISIOLO,Main Sewer,4.0
+56,KAJIADO,Main Sewer,2.8
+57,KAKAMEGA,Main Sewer,0.8
+58,KERICHO,Main Sewer,1.7
+59,KIAMBU,Main Sewer,9.1
+60,KILIFI,Main Sewer,2.4
+61,KIRINYAGA,Main Sewer,0.7
+62,KISII,Main Sewer,1.9
+63,KISUMU,Main Sewer,4.8
+64,KITUI,Main Sewer,0.5
+65,KWALE,Main Sewer,0.9
+66,LAIKIPIA,Main Sewer,8.9
+67,LAMU,Main Sewer,2.1
+68,MACHAKOS,Main Sewer,5.7
+69,MAKUENI,Main Sewer,0.4
+70,MANDERA,Main Sewer,1.2
+71,MARSABIT,Main Sewer,0.1
+72,MERU,Main Sewer,0.7
+73,MIGORI,Main Sewer,0.5
+74,MOMBASA,Main Sewer,16.6
+75,MURANG'A,Main Sewer,2.3
+76,NAIROBI CITY,Main Sewer,54.3
+77,NAKURU,Main Sewer,7.7
+78,NANDI,Main Sewer,0.4
+79,NAROK,Main Sewer,0.5
+80,NYAMIRA,Main Sewer,0.3
+81,NYANDARUA,Main Sewer,0.3
+82,NYERI,Main Sewer,6.7
+83,SAMBURU,Main Sewer,0.4
+84,SIAYA,Main Sewer,0.3
+85,TAITA/TAVETA,Main Sewer,1.1
+86,TANA RIVER,Main Sewer,0.8
+87,THARAKA-NITHI,Main Sewer,0.6
+88,TRANS NZOIA,Main Sewer,1.7
+89,TURKANA,Main Sewer,0.4
+90,UASIN GISHU,Main Sewer,9.6
+91,VIHIGA,Main Sewer,0.3
+92,WAJIR,Main Sewer,1.7
+93,WEST POKOT,Main Sewer,0.2
+94,BARINGO,Septic tank,2.1
+95,BOMET,Septic tank,1.2
+96,BUNGOMA,Septic tank,2.8
+97,BUSIA,Septic tank,2.2
+98,ELGEYO/MARAKWET,Septic tank,1.1
+99,EMBU,Septic tank,7.2
+100,GARISSA,Septic tank,4.9
+101,HOMA BAY,Septic tank,1.2
+102,ISIOLO,Septic tank,3.1
+103,KAJIADO,Septic tank,21.3
+104,KAKAMEGA,Septic tank,2.4
+105,KERICHO,Septic tank,2.6
+106,KIAMBU,Septic tank,24.9
+107,KILIFI,Septic tank,18.7
+108,KIRINYAGA,Septic tank,8.4
+109,KISII,Septic tank,2.1
+110,KISUMU,Septic tank,6.1
+111,KITUI,Septic tank,2.8
+112,KWALE,Septic tank,8.8
+113,LAIKIPIA,Septic tank,5.2
+114,LAMU,Septic tank,9.4
+115,MACHAKOS,Septic tank,12.6
+116,MAKUENI,Septic tank,2.4
+117,MANDERA,Septic tank,2.0
+118,MARSABIT,Septic tank,0.7
+119,MERU,Septic tank,5.2
+120,MIGORI,Septic tank,1.7
+121,MOMBASA,Septic tank,31.2
+122,MURANG'A,Septic tank,4.5
+123,NAIROBI CITY,Septic tank,18.1
+124,NAKURU,Septic tank,10.1
+125,NANDI,Septic tank,1.8
+126,NAROK,Septic tank,2.1
+127,NYAMIRA,Septic tank,1.7
+128,NYANDARUA,Septic tank,3.1
+129,NYERI,Septic tank,7.1
+130,SAMBURU,Septic tank,1.4
+131,SIAYA,Septic tank,1.4
+132,TAITA/TAVETA,Septic tank,11.2
+133,TANA RIVER,Septic tank,4.0
+134,THARAKA-NITHI,Septic tank,3.8
+135,TRANS NZOIA,Septic tank,4.0
+136,TURKANA,Septic tank,1.4
+137,UASIN GISHU,Septic tank,10.9
+138,VIHIGA,Septic tank,1.3
+139,WAJIR,Septic tank,3.9
+140,WEST POKOT,Septic tank,1.2
+141,BARINGO,Cess pool,0.1
+142,BOMET,Cess pool,0.1
+143,BUNGOMA,Cess pool,0.2
+144,BUSIA,Cess pool,0.2
+145,ELGEYO/MARAKWET,Cess pool,0.0
+146,EMBU,Cess pool,0.3
+147,GARISSA,Cess pool,0.7
+148,HOMA BAY,Cess pool,0.1
+149,ISIOLO,Cess pool,0.4
+150,KAJIADO,Cess pool,0.4
+151,KAKAMEGA,Cess pool,0.1
+152,KERICHO,Cess pool,0.1
+153,KIAMBU,Cess pool,0.5
+154,KILIFI,Cess pool,0.6
+155,KIRINYAGA,Cess pool,0.2
+156,KISII,Cess pool,0.3
+157,KISUMU,Cess pool,0.2
+158,KITUI,Cess pool,0.1
+159,KWALE,Cess pool,0.5
+160,LAIKIPIA,Cess pool,0.1
+161,LAMU,Cess pool,0.7
+162,MACHAKOS,Cess pool,0.3
+163,MAKUENI,Cess pool,0.1
+164,MANDERA,Cess pool,0.3
+165,MARSABIT,Cess pool,0.1
+166,MERU,Cess pool,0.2
+167,MIGORI,Cess pool,0.2
+168,MOMBASA,Cess pool,1.1
+169,MURANG'A,Cess pool,0.1
+170,NAIROBI CITY,Cess pool,0.6
+171,NAKURU,Cess pool,0.2
+172,NANDI,Cess pool,0.1
+173,NAROK,Cess pool,0.1
+174,NYAMIRA,Cess pool,0.2
+175,NYANDARUA,Cess pool,0.1
+176,NYERI,Cess pool,0.2
+177,SAMBURU,Cess pool,0.0
+178,SIAYA,Cess pool,0.1
+179,TAITA/TAVETA,Cess pool,0.2
+180,TANA RIVER,Cess pool,0.5
+181,THARAKA-NITHI,Cess pool,0.1
+182,TRANS NZOIA,Cess pool,0.2
+183,TURKANA,Cess pool,0.2
+184,UASIN GISHU,Cess pool,0.2
+185,VIHIGA,Cess pool,0.1
+186,WAJIR,Cess pool,0.3
+187,WEST POKOT,Cess pool,0.1
+188,BARINGO,VIP Latrine,12.4
+189,BOMET,VIP Latrine,6.7
+190,BUNGOMA,VIP Latrine,10.9
+191,BUSIA,VIP Latrine,11.1
+192,ELGEYO/MARAKWET,VIP Latrine,8.8
+193,EMBU,VIP Latrine,14.5
+194,GARISSA,VIP Latrine,3.6
+195,HOMA BAY,VIP Latrine,10.1
+196,ISIOLO,VIP Latrine,17.7
+197,KAJIADO,VIP Latrine,14.0
+198,KAKAMEGA,VIP Latrine,12.3
+199,KERICHO,VIP Latrine,10.0
+200,KIAMBU,VIP Latrine,15.3
+201,KILIFI,VIP Latrine,10.1
+202,KIRINYAGA,VIP Latrine,17.9
+203,KISII,VIP Latrine,11.0
+204,KISUMU,VIP Latrine,8.7
+205,KITUI,VIP Latrine,13.0
+206,KWALE,VIP Latrine,8.7
+207,LAIKIPIA,VIP Latrine,12.0
+208,LAMU,VIP Latrine,11.5
+209,MACHAKOS,VIP Latrine,14.9
+210,MAKUENI,VIP Latrine,15.2
+211,MANDERA,VIP Latrine,2.8
+212,MARSABIT,VIP Latrine,5.1
+213,MERU,VIP Latrine,21.3
+214,MIGORI,VIP Latrine,10.3
+215,MOMBASA,VIP Latrine,11.1
+216,MURANG'A,VIP Latrine,15.8
+217,NAIROBI CITY,VIP Latrine,6.3
+218,NAKURU,VIP Latrine,17.8
+219,NANDI,VIP Latrine,17.3
+220,NAROK,VIP Latrine,8.6
+221,NYAMIRA,VIP Latrine,13.3
+222,NYANDARUA,VIP Latrine,17.8
+223,NYERI,VIP Latrine,14.0
+224,SAMBURU,VIP Latrine,4.2
+225,SIAYA,VIP Latrine,10.8
+226,TAITA/TAVETA,VIP Latrine,13.8
+227,TANA RIVER,VIP Latrine,4.6
+228,THARAKA-NITHI,VIP Latrine,15.6
+229,TRANS NZOIA,VIP Latrine,13.9
+230,TURKANA,VIP Latrine,3.3
+231,UASIN GISHU,VIP Latrine,14.4
+232,VIHIGA,VIP Latrine,18.4
+233,WAJIR,VIP Latrine,2.1
+234,WEST POKOT,VIP Latrine,5.3
+235,BARINGO,Pit latrine covered,45.7
+236,BOMET,Pit latrine covered,77.5
+237,BUNGOMA,Pit latrine covered,68.6
+238,BUSIA,Pit latrine covered,68.0
+239,ELGEYO/MARAKWET,Pit latrine covered,57.7
+240,EMBU,Pit latrine covered,66.2
+241,GARISSA,Pit latrine covered,29.7
+242,HOMA BAY,Pit latrine covered,62.0
+243,ISIOLO,Pit latrine covered,36.8
+244,KAJIADO,Pit latrine covered,41.2
+245,KAKAMEGA,Pit latrine covered,73.4
+246,KERICHO,Pit latrine covered,69.8
+247,KIAMBU,Pit latrine covered,45.9
+248,KILIFI,Pit latrine covered,40.1
+249,KIRINYAGA,Pit latrine covered,68.5
+250,KISII,Pit latrine covered,59.6
+251,KISUMU,Pit latrine covered,65.4
+252,KITUI,Pit latrine covered,62.0
+253,KWALE,Pit latrine covered,38.2
+254,LAIKIPIA,Pit latrine covered,55.8
+255,LAMU,Pit latrine covered,42.8
+256,MACHAKOS,Pit latrine covered,54.8
+257,MAKUENI,Pit latrine covered,67.1
+258,MANDERA,Pit latrine covered,28.3
+259,MARSABIT,Pit latrine covered,37.0
+260,MERU,Pit latrine covered,62.3
+261,MIGORI,Pit latrine covered,62.2
+262,MOMBASA,Pit latrine covered,30.8
+263,MURANG'A,Pit latrine covered,71.4
+264,NAIROBI CITY,Pit latrine covered,16.8
+265,NAKURU,Pit latrine covered,53.2
+266,NANDI,Pit latrine covered,67.1
+267,NAROK,Pit latrine covered,49.2
+268,NYAMIRA,Pit latrine covered,60.4
+269,NYANDARUA,Pit latrine covered,71.8
+270,NYERI,Pit latrine covered,66.3
+271,SAMBURU,Pit latrine covered,23.6
+272,SIAYA,Pit latrine covered,68.9
+273,TAITA/TAVETA,Pit latrine covered,58.7
+274,TANA RIVER,Pit latrine covered,31.7
+275,THARAKA-NITHI,Pit latrine covered,66.5
+276,TRANS NZOIA,Pit latrine covered,64.6
+277,TURKANA,Pit latrine covered,18.9
+278,UASIN GISHU,Pit latrine covered,55.3
+279,VIHIGA,Pit latrine covered,70.1
+280,WAJIR,Pit latrine covered,21.6
+281,WEST POKOT,Pit latrine covered,41.7
+282,BARINGO,Pit Latrine uncovered,8.3
+283,BOMET,Pit Latrine uncovered,13.0
+284,BUNGOMA,Pit Latrine uncovered,14.7
+285,BUSIA,Pit Latrine uncovered,14.9
+286,ELGEYO/MARAKWET,Pit Latrine uncovered,24.9
+287,EMBU,Pit Latrine uncovered,8.6
+288,GARISSA,Pit Latrine uncovered,16.7
+289,HOMA BAY,Pit Latrine uncovered,14.7
+290,ISIOLO,Pit Latrine uncovered,6.7
+291,KAJIADO,Pit Latrine uncovered,5.5
+292,KAKAMEGA,Pit Latrine uncovered,9.5
+293,KERICHO,Pit Latrine uncovered,13.7
+294,KIAMBU,Pit Latrine uncovered,3.3
+295,KILIFI,Pit Latrine uncovered,9.2
+296,KIRINYAGA,Pit Latrine uncovered,3.9
+297,KISII,Pit Latrine uncovered,23.7
+298,KISUMU,Pit Latrine uncovered,10.5
+299,KITUI,Pit Latrine uncovered,12.0
+300,KWALE,Pit Latrine uncovered,9.8
+301,LAIKIPIA,Pit Latrine uncovered,8.3
+302,LAMU,Pit Latrine uncovered,14.0
+303,MACHAKOS,Pit Latrine uncovered,10.1
+304,MAKUENI,Pit Latrine uncovered,13.4
+305,MANDERA,Pit Latrine uncovered,23.4
+306,MARSABIT,Pit Latrine uncovered,9.3
+307,MERU,Pit Latrine uncovered,8.5
+308,MIGORI,Pit Latrine uncovered,15.0
+309,MOMBASA,Pit Latrine uncovered,5.5
+310,MURANG'A,Pit Latrine uncovered,5.4
+311,NAIROBI CITY,Pit Latrine uncovered,2.1
+312,NAKURU,Pit Latrine uncovered,9.4
+313,NANDI,Pit Latrine uncovered,11.5
+314,NAROK,Pit Latrine uncovered,10.6
+315,NYAMIRA,Pit Latrine uncovered,22.6
+316,NYANDARUA,Pit Latrine uncovered,6.6
+317,NYERI,Pit Latrine uncovered,5.3
+318,SAMBURU,Pit Latrine uncovered,4.2
+319,SIAYA,Pit Latrine uncovered,12.0
+320,TAITA/TAVETA,Pit Latrine uncovered,12.1
+321,TANA RIVER,Pit Latrine uncovered,9.0
+322,THARAKA-NITHI,Pit Latrine uncovered,12.0
+323,TRANS NZOIA,Pit Latrine uncovered,13.8
+324,TURKANA,Pit Latrine uncovered,6.8
+325,UASIN GISHU,Pit Latrine uncovered,8.6
+326,VIHIGA,Pit Latrine uncovered,9.1
+327,WAJIR,Pit Latrine uncovered,16.0
+328,WEST POKOT,Pit Latrine uncovered,8.1
+329,BARINGO,Bucket latrine,0.3
+330,BOMET,Bucket latrine,0.2
+331,BUNGOMA,Bucket latrine,0.5
+332,BUSIA,Bucket latrine,0.4
+333,ELGEYO/MARAKWET,Bucket latrine,0.3
+334,EMBU,Bucket latrine,0.3
+335,GARISSA,Bucket latrine,2.9
+336,HOMA BAY,Bucket latrine,0.6
+337,ISIOLO,Bucket latrine,0.6
+338,KAJIADO,Bucket latrine,0.6
+339,KAKAMEGA,Bucket latrine,0.4
+340,KERICHO,Bucket latrine,0.4
+341,KIAMBU,Bucket latrine,0.3
+342,KILIFI,Bucket latrine,1.8
+343,KIRINYAGA,Bucket latrine,0.2
+344,KISII,Bucket latrine,0.5
+345,KISUMU,Bucket latrine,0.5
+346,KITUI,Bucket latrine,0.3
+347,KWALE,Bucket latrine,1.2
+348,LAIKIPIA,Bucket latrine,0.2
+349,LAMU,Bucket latrine,1.4
+350,MACHAKOS,Bucket latrine,0.3
+351,MAKUENI,Bucket latrine,0.2
+352,MANDERA,Bucket latrine,2.4
+353,MARSABIT,Bucket latrine,0.4
+354,MERU,Bucket latrine,0.3
+355,MIGORI,Bucket latrine,0.6
+356,MOMBASA,Bucket latrine,2.4
+357,MURANG'A,Bucket latrine,0.1
+358,NAIROBI CITY,Bucket latrine,1.3
+359,NAKURU,Bucket latrine,0.5
+360,NANDI,Bucket latrine,0.2
+361,NAROK,Bucket latrine,0.6
+362,NYAMIRA,Bucket latrine,0.5
+363,NYANDARUA,Bucket latrine,0.1
+364,NYERI,Bucket latrine,0.1
+365,SAMBURU,Bucket latrine,0.6
+366,SIAYA,Bucket latrine,0.3
+367,TAITA/TAVETA,Bucket latrine,0.3
+368,TANA RIVER,Bucket latrine,0.6
+369,THARAKA-NITHI,Bucket latrine,0.2
+370,TRANS NZOIA,Bucket latrine,0.4
+371,TURKANA,Bucket latrine,0.8
+372,UASIN GISHU,Bucket latrine,0.3
+373,VIHIGA,Bucket latrine,0.2
+374,WAJIR,Bucket latrine,10.5
+375,WEST POKOT,Bucket latrine,0.7
+376,BARINGO,Open/ Bush,30.8
+377,BOMET,Open/ Bush,1.0
+378,BUNGOMA,Open/ Bush,1.4
+379,BUSIA,Open/ Bush,2.5
+380,ELGEYO/MARAKWET,Open/ Bush,6.8
+381,EMBU,Open/ Bush,0.7
+382,GARISSA,Open/ Bush,36.2
+383,HOMA BAY,Open/ Bush,10.2
+384,ISIOLO,Open/ Bush,30.6
+385,KAJIADO,Open/ Bush,13.6
+386,KAKAMEGA,Open/ Bush,1.1
+387,KERICHO,Open/ Bush,1.5
+388,KIAMBU,Open/ Bush,0.1
+389,KILIFI,Open/ Bush,17.0
+390,KIRINYAGA,Open/ Bush,0.2
+391,KISII,Open/ Bush,0.9
+392,KISUMU,Open/ Bush,3.6
+393,KITUI,Open/ Bush,9.2
+394,KWALE,Open/ Bush,31.7
+395,LAIKIPIA,Open/ Bush,9.4
+396,LAMU,Open/ Bush,17.9
+397,MACHAKOS,Open/ Bush,0.9
+398,MAKUENI,Open/ Bush,1.2
+399,MANDERA,Open/ Bush,39.4
+400,MARSABIT,Open/ Bush,47.4
+401,MERU,Open/ Bush,1.4
+402,MIGORI,Open/ Bush,9.4
+403,MOMBASA,Open/ Bush,0.9
+404,MURANG'A,Open/ Bush,0.2
+405,NAIROBI CITY,Open/ Bush,0.1
+406,NAKURU,Open/ Bush,0.8
+407,NANDI,Open/ Bush,1.5
+408,NAROK,Open/ Bush,28.2
+409,NYAMIRA,Open/ Bush,1.0
+410,NYANDARUA,Open/ Bush,0.2
+411,NYERI,Open/ Bush,0.1
+412,SAMBURU,Open/ Bush,65.6
+413,SIAYA,Open/ Bush,6.0
+414,TAITA/TAVETA,Open/ Bush,2.4
+415,TANA RIVER,Open/ Bush,48.6
+416,THARAKA-NITHI,Open/ Bush,1.1
+417,TRANS NZOIA,Open/ Bush,1.4
+418,TURKANA,Open/ Bush,68.1
+419,UASIN GISHU,Open/ Bush,0.5
+420,VIHIGA,Open/ Bush,0.6
+421,WAJIR,Open/ Bush,43.6
+422,WEST POKOT,Open/ Bush,42.7
+423,BARINGO,Bio-septic tank/ Biodigester,0.1
+424,BOMET,Bio-septic tank/ Biodigester,0.1
+425,BUNGOMA,Bio-septic tank/ Biodigester,0.1
+426,BUSIA,Bio-septic tank/ Biodigester,0.1
+427,ELGEYO/MARAKWET,Bio-septic tank/ Biodigester,0.0
+428,EMBU,Bio-septic tank/ Biodigester,0.0
+429,GARISSA,Bio-septic tank/ Biodigester,0.2
+430,HOMA BAY,Bio-septic tank/ Biodigester,0.0
+431,ISIOLO,Bio-septic tank/ Biodigester,0.1
+432,KAJIADO,Bio-septic tank/ Biodigester,0.4
+433,KAKAMEGA,Bio-septic tank/ Biodigester,0.0
+434,KERICHO,Bio-septic tank/ Biodigester,0.1
+435,KIAMBU,Bio-septic tank/ Biodigester,0.5
+436,KILIFI,Bio-septic tank/ Biodigester,0.1
+437,KIRINYAGA,Bio-septic tank/ Biodigester,0.0
+438,KISII,Bio-septic tank/ Biodigester,0.0
+439,KISUMU,Bio-septic tank/ Biodigester,0.1
+440,KITUI,Bio-septic tank/ Biodigester,0.1
+441,KWALE,Bio-septic tank/ Biodigester,0.1
+442,LAIKIPIA,Bio-septic tank/ Biodigester,0.1
+443,LAMU,Bio-septic tank/ Biodigester,0.1
+444,MACHAKOS,Bio-septic tank/ Biodigester,0.5
+445,MAKUENI,Bio-septic tank/ Biodigester,0.1
+446,MANDERA,Bio-septic tank/ Biodigester,0.1
+447,MARSABIT,Bio-septic tank/ Biodigester,0.0
+448,MERU,Bio-septic tank/ Biodigester,0.1
+449,MIGORI,Bio-septic tank/ Biodigester,0.1
+450,MOMBASA,Bio-septic tank/ Biodigester,0.3
+451,MURANG'A,Bio-septic tank/ Biodigester,0.1
+452,NAIROBI CITY,Bio-septic tank/ Biodigester,0.3
+453,NAKURU,Bio-septic tank/ Biodigester,0.1
+454,NANDI,Bio-septic tank/ Biodigester,0.0
+455,NAROK,Bio-septic tank/ Biodigester,0.1
+456,NYAMIRA,Bio-septic tank/ Biodigester,0.1
+457,NYANDARUA,Bio-septic tank/ Biodigester,0.0
+458,NYERI,Bio-septic tank/ Biodigester,0.1
+459,SAMBURU,Bio-septic tank/ Biodigester,0.0
+460,SIAYA,Bio-septic tank/ Biodigester,0.0
+461,TAITA/TAVETA,Bio-septic tank/ Biodigester,0.1
+462,TANA RIVER,Bio-septic tank/ Biodigester,0.2
+463,THARAKA-NITHI,Bio-septic tank/ Biodigester,0.1
+464,TRANS NZOIA,Bio-septic tank/ Biodigester,0.1
+465,TURKANA,Bio-septic tank/ Biodigester,0.1
+466,UASIN GISHU,Bio-septic tank/ Biodigester,0.2
+467,VIHIGA,Bio-septic tank/ Biodigester,0.0
+468,WAJIR,Bio-septic tank/ Biodigester,0.2
+469,WEST POKOT,Bio-septic tank/ Biodigester,0.0
+470,BARINGO,Not Stated,0.0
+471,BOMET,Not Stated,0.0
+472,BUNGOMA,Not Stated,0.0
+473,BUSIA,Not Stated,0.0
+474,ELGEYO/MARAKWET,Not Stated,0.0
+475,EMBU,Not Stated,0.0
+476,GARISSA,Not Stated,0.0
+477,HOMA BAY,Not Stated,0.0
+478,ISIOLO,Not Stated,0.0
+479,KAJIADO,Not Stated,0.0
+480,KAKAMEGA,Not Stated,0.0
+481,KERICHO,Not Stated,0.0
+482,KIAMBU,Not Stated,0.0
+483,KILIFI,Not Stated,0.0
+484,KIRINYAGA,Not Stated,0.0
+485,KISII,Not Stated,0.0
+486,KISUMU,Not Stated,0.0
+487,KITUI,Not Stated,0.0
+488,KWALE,Not Stated,0.0
+489,LAIKIPIA,Not Stated,0.0
+490,LAMU,Not Stated,0.0
+491,MACHAKOS,Not Stated,0.0
+492,MAKUENI,Not Stated,0.0
+493,MANDERA,Not Stated,0.0
+494,MARSABIT,Not Stated,0.1
+495,MERU,Not Stated,0.0
+496,MIGORI,Not Stated,0.0
+497,MOMBASA,Not Stated,0.0
+498,MURANG'A,Not Stated,0.0
+499,NAIROBI CITY,Not Stated,0.1
+500,NAKURU,Not Stated,0.0
+501,NANDI,Not Stated,0.0
+502,NAROK,Not Stated,0.0
+503,NYAMIRA,Not Stated,0.0
+504,NYANDARUA,Not Stated,0.0
+505,NYERI,Not Stated,0.0
+506,SAMBURU,Not Stated,0.0
+507,SIAYA,Not Stated,0.0
+508,TAITA/TAVETA,Not Stated,0.0
+509,TANA RIVER,Not Stated,0.1
+510,THARAKA-NITHI,Not Stated,0.0
+511,TRANS NZOIA,Not Stated,0.0
+512,TURKANA,Not Stated,0.1
+513,UASIN GISHU,Not Stated,0.0
+514,VIHIGA,Not Stated,0.0
+515,WAJIR,Not Stated,0.0
+516,WEST POKOT,Not Stated,0.0
