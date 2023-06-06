@@ -5,6 +5,7 @@ import pandas as pd
 df = pd.read_csv('sanitation_long2.csv')
 
 app = Dash(__name__)
+server = app.server
 
 app.layout = html.Div([
     html.Div("App that shows Percentage Distribution of Human Waste Disposal Across Counties (2019 Census)"),
