@@ -21,22 +21,12 @@ app.layout = html.Div([
 
     html.Hr(),
 
-    # html.Div([
-    #     dcc.RadioItems(
-    #         options=['Conventional Households', 'Main Sewer', 'Septic tank',
-    #                  'Cess pool', 'VIP Latrine', 'Pit latrine covered', 'Pit Latrine uncovered',
-    #                  'Bucket latrine', 'Open/ Bush', 'Bio-septic tank/ Biodigester', 'Not Stated'],
-    #         value='Main Sewer', id='radioitem'
-    #     )
-    # ]),
-
     dcc.Graph(id='graph-based-on-dropdown')
 ])
 
 @app.callback(
     Output('graph-based-on-dropdown', 'figure'),
     Input('dropdown', 'value'),
-    # Input('radioitem', 'value')
 )
 def update_figure(selected_county):
     filtered_county = df[df.County == selected_county]
@@ -44,7 +34,8 @@ def update_figure(selected_county):
 
     fig = px.bar(filtered_county, x='indicator',
                  y='value', color='indicator',
-                 title="Percentage Distribution of Conventional Households by Main Mode of Human Waste Disposal")
+                 title="Percentage Distribution of Conventional Households by Main Mode of Human Waste Disposal",
+                 height=600)
 
     return fig
 
