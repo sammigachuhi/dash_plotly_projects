@@ -5,6 +5,7 @@ import pandas as pd
 df = pd.read_csv('sanitation_long2.csv')
 
 app = Dash(__name__)
+server = app.server
 
 app.layout = html.Div([
     html.Div("App that shows Percentage Distribution of Human Waste Disposal Across Counties (2019 Census)"),
@@ -36,6 +37,8 @@ def update_figure(selected_county):
                  y='value', color='indicator',
                  title="Percentage Distribution of Conventional Households by Main Mode of Human Waste Disposal According to Kenya 2019 Census",
                  height=600)
+
+    fig.update_layout(transition_duration=100)
 
     return fig
 
