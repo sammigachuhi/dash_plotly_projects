@@ -25,17 +25,29 @@ app.layout = html.Div([
 
     dash_table.DataTable(data=df2.to_dict('records'), page_size=5),
 
+    html.Div([
+        html.Button("Download CSV", id="btn_csv"),
+        dcc.Download(id='download-dataframe-csv'),
+    ])
+
 ])
 
 @app.callback(
     Output('indicator-graphic', 'figure'),
-    Input('select-county', 'value')
+    Input('select-county', 'value'),
 )
 def update_graph(selected_county):
     filtered_df = df[df.County == selected_county]
     fig = px.pie(filtered_df, names='indicator', values='value')
     return fig
 
+@app.callback(
+    Output('download-dataframe-csv', 'data'),
+    Input('btn_csv', 'n_clicks'),
+    prevent_initial_call=True,
+)
+def func(n_clicks):
+    return dcc.send_data_frame(df2.to_csv, 'mydf.csv')
 
 if __name__ == '__main__':
     app.run_server(debug=True)
