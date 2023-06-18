@@ -17,13 +17,13 @@ app.layout = html.Div([
     html.H2(children="Pie chart showing human waste disposal as proportion of conventional households (Kenya 2019 census)"),
 
     # Create dropdown
-    dcc.Dropdown([name for name in df.County], id='selected_county', multi=True),
+    dcc.Dropdown(options=[{'label': name, 'value': name} for name in df.County.unique()], id='selected_county', multi=True),
 
     # Create stack bar graph/chart
     dcc.Graph(figure={}, id='controls-and-graph'),
 
     # Create filterable datatable
-    dash_table.DataTable(columns= [
+    dash_table.DataTable(columns=[
         {'name': i, 'id': i} for i in df2.columns
     ],
         data=df2.to_dict('records'),
@@ -43,15 +43,16 @@ app.layout = html.Div([
     Input('selected_county', 'value'),
 )
 def update_graph(dropdown_choices):
-    if isinstance(dropdown_choices, list):
+    if dropdown_choices == None:
+        # Return an empty value if no choices provided
+        return {}
+    else:
         dff = df[df.County.isin(dropdown_choices)]
-        fig = px.bar(dff, x='County', y='value', color='indicator')
-        fig.update_layout(transition_duration=50)
+        # melted_df = dff.melt(id_vars='County', var_name='indicator', value_name='value')
+        fig = px.bar(dff, x='County', y='value', color='indicator', barmode='stack')
+        # Increase the rendering speed
+        fig.update_layout(transition_duration=100)
         return fig
-# def update_graph(dropdown_choices):
-#     dff = df[df.County == dropdown_choices]
-#     fig = px.bar(dff, x='County', y='value', color='indicator')
-#     return fig
 
 # Function to show and download dataframe
 @app.callback(
@@ -64,15 +65,6 @@ def func(n_clicks):
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-
-
-
-
-
-
-
-
-
 
 
 
