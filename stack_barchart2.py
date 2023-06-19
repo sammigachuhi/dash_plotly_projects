@@ -14,7 +14,7 @@ server = app.server
 
 # App layout
 app.layout = html.Div([
-    html.H2(children="Pie chart showing human waste disposal as proportion of conventional households (Kenya 2019 census)"),
+    html.H2(children="Chart showing human waste disposal as proportion of conventional households (Kenya 2019 census)"),
 
     # Create dropdown
     dcc.Dropdown(options=[{'label': name, 'value': name} for name in df.County.unique()], id='selected_county', multi=True),
