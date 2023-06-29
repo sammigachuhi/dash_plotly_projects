@@ -6,8 +6,8 @@ import numpy as np
 # Import the data
 df_drinking = pd.read_csv("archive/Basic and safely managed drinking water services.csv")
 # df_drinking = df_drinking[df_drinking['Residence Area Type'] == 'Total']
-df_sanitation = pd.read_csv("archive/Basic and safely managed drinking water services.csv")
-df_handwashing = pd.read_csv("archive/Basic and safely managed drinking water services.csv")
+df_sanitation = pd.read_csv("archive/Basic and safely managed sanitation services.csv")
+df_handwashing = pd.read_csv("archive/Handwashing with soap.csv")
 df_defecation = pd.read_csv("archive/Open defecation.csv")
 
 # External stylesheets
@@ -66,6 +66,14 @@ app.layout = html.Div([
         ]),
     ]),
 
+# Download button for drinking water dataframe
+    html.Div(children=[
+        html.Div(children=[
+            html.Button("Download Drinking Water Dataframe", id="drinking_water_df"),
+            dcc.Download(id="download_drinking_water_csv")
+        ])
+    ]),
+
     # Sanitation services
     html.Div(className="row", children=[
         html.Div(className="six columns", children=[
@@ -73,6 +81,14 @@ app.layout = html.Div([
         ]),
         html.Div(className="six columns", children=[
             dcc.Graph("line_graph_sanitation_services")
+        ])
+    ]),
+
+    # Download button for sanitation services dataframe
+    html.Div(children=[
+        html.Div(children=[
+            html.Button("Download Sanitation Services Dataframe", id="sanitation_services_df"),
+            dcc.Download(id="download_sanitation_services_csv")
         ])
     ]),
 
@@ -86,6 +102,14 @@ app.layout = html.Div([
         ])
     ]),
 
+    # Download button for handwashing dataframe
+    html.Div(children=[
+        html.Div(children=[
+            html.Button("Download Handwashing Dataframe", id="handwashing_df"),
+            dcc.Download(id="download_handwashing_csv")
+        ])
+    ]),
+
     # Open defecation
     html.Div(className="row", children=[
         html.Div(className="six columns", children=[
@@ -94,7 +118,16 @@ app.layout = html.Div([
         html.Div(className="six columns", children=[
             dcc.Graph("line_graph_defecation")
         ])
-    ])
+    ]),
+
+    # Download button for open defecation dataframe
+    html.Div(children=[
+        html.Div(children=[
+            html.Button("Download Open Defecation Dataframe", id="open_defecation_df"),
+            dcc.Download(id="download_open_defecation_csv")
+        ])
+    ]),
+
 ])
 
 # Bar chart for drinking water
@@ -135,6 +168,15 @@ def update_line_drinking(x_axis_column_name, residence_type):
 
     return fig
 
+# Function to download drinking water dataframe
+@app.callback(
+    Output("download_drinking_water_csv", "data"),
+    Input("drinking_water_df", "n_clicks"),
+    prevent_initial_call=True
+)
+def download_df(n_clicks):
+    return dcc.send_data_frame(df_drinking.to_csv, "drinking_water.csv")
+
 # Bar chart for sanitation services
 @app.callback(
     Output("stack_bar_sanitation_services", "figure"),
@@ -173,6 +215,15 @@ def update_line_sanitation(x_axis_column_name, residence_type):
                                   'easing': 'linear'})
 
     return fig
+
+# Function to download sanitation services dataframe
+@app.callback(
+    Output("download_sanitation_services_csv", "data"),
+    Input("sanitation_services_df", "n_clicks"),
+    prevent_initial_call=True
+)
+def download_df(n_clicks):
+    return dcc.send_data_frame(df_sanitation.to_csv, "sanitation_services.csv")
 
 # Bar chart for handwashing services
 @app.callback(
@@ -213,6 +264,15 @@ def update_line_handwashing(x_axis_column_name, residence_type):
 
     return fig
 
+# Function to download handwashing dataframe
+@app.callback(
+    Output("download_handwashing_csv", "data"),
+    Input("handwashing_df", "n_clicks"),
+    prevent_initial_call=True
+)
+def download_df(n_clicks):
+    return dcc.send_data_frame(df_handwashing.to_csv, "handwashing.csv")
+
 # Bar chart for open defecation
 @app.callback(
     Output("stack_bar_defecation", "figure"),
@@ -250,6 +310,15 @@ def update_line_defecation(x_axis_column_name, residence_type):
                                   'easing': 'linear'})
 
     return fig
+
+# Function to download open defecation dataframe
+@app.callback(
+    Output("download_open_defecation_csv", "data"),
+    Input("open_defecation_df", "n_clicks"),
+    prevent_initial_call=True
+)
+def download_df(n_clicks):
+    return dcc.send_data_frame(df_defecation.to_csv, "open_defecation.csv")
 
 # Run the app
 if __name__ == "__main__":
