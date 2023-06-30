@@ -5,7 +5,6 @@ import numpy as np
 
 # Import the data
 df_drinking = pd.read_csv("archive/Basic and safely managed drinking water services.csv")
-# df_drinking = df_drinking[df_drinking['Residence Area Type'] == 'Total']
 df_sanitation = pd.read_csv("archive/Basic and safely managed sanitation services.csv")
 df_handwashing = pd.read_csv("archive/Handwashing with soap.csv")
 df_defecation = pd.read_csv("archive/Open defecation.csv")
@@ -15,16 +14,15 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 # Map countries to color
-# map emotions to a color
-c = dict(zip(df_drinking.Country.unique(), px.colors.qualitative.G10))
+c = dict(zip(df_drinking.Country.unique(), px.colors.qualitative.Plotly))
 
+# Create the app layout
 app.layout = html.Div([
     html.H1("Global sanitation indicators for each country"),
 
     html.Hr(),
+
     # Indicate reason for zigzag lines
-    # html.H6("Some indicators could have duplicate values, thus the reason for some line graphs appearing in a zigzag format" + "<br>" +
-    #         "especially for `Total` and `Urban` variables",),
     dcc.Markdown('''
     *Some indicators could have duplicate values, thus the reason for some line graphs appearing in a zigzag format* 
     
@@ -34,7 +32,7 @@ app.layout = html.Div([
     html.Hr(),
 
     html.Div(className="row", children=[
-    # The country dropdown
+        # The country dropdown
         dcc.Dropdown(className="six columns",
             options=[{'label': country, 'value': country} for country in df_drinking.Country.unique()],
             # options= df_drinking.Country.unique(),
@@ -66,7 +64,7 @@ app.layout = html.Div([
         ]),
     ]),
 
-# Download button for drinking water dataframe
+    # Download button for drinking water dataframe
     html.Div(children=[
         html.Div(children=[
             html.Button("Download Drinking Water Dataframe", id="drinking_water_df"),
@@ -136,13 +134,16 @@ app.layout = html.Div([
     Input("country_dropdown", "value"),
     Input("residence_dropdown", "value")
 )
-def update_stack_drinking(x_axis_column_name, residence_type):
+def histogram(x_axis_column_name, residence_type):
     dff = df_drinking[df_drinking['Country'].isin(x_axis_column_name)]
+    dff = dff.sort_values(by='Year')
 
     fig = px.histogram(dff[dff['Residence Area Type'] == residence_type], x='Country', y='Display Value', histfunc='avg',
-                       color='Country', title="Bar Chart Showing Average Percentage (%) of Population using safely " + "<br>" +
-                                              "managed drinking-water services (%)",
-                       color_discrete_map=c)
+                       color='Country', title=f"Bar chart showing average percentage (%) of population using safely " + "<br>" +
+                                              f"managed drinking-water services (%) {dff['Year'].min()}-{dff['Year'].max()}",
+                       color_discrete_map=c,
+                       )
+
     fig.update_layout(transition={'duration': 100,
                                   'easing': 'linear'})
 
@@ -154,15 +155,17 @@ def update_stack_drinking(x_axis_column_name, residence_type):
     Input("country_dropdown", "value"),
     Input("residence_dropdown", "value")
 )
-def update_line_drinking(x_axis_column_name, residence_type):
+def line_chart(x_axis_column_name, residence_type):
 
     dff = df_drinking[df_drinking['Country'].isin(x_axis_column_name)]
     dff = dff.sort_values(by='Year')
 
     fig = px.line(dff[dff['Residence Area Type'] == residence_type], x='Year', y='Display Value', markers=True,
-                      color='Country', title="Line Chart Showing Population using safely " + "<br>" +
-                                             "managed drinking-water services (%)",
-                  color_discrete_map=c)
+                      color='Country', title=f"Line chart showing population using safely " + "<br>" +
+                                             f"managed drinking-water services (%) {dff['Year'].min()}-{dff['Year'].max()}",
+                  color_discrete_map=c,
+                  )
+
     fig.update_layout(transition={'duration': 100,
                                   'easing': 'linear'})
 
@@ -183,14 +186,17 @@ def download_df(n_clicks):
     Input("country_dropdown", "value"),
     Input("residence_dropdown", "value")
 )
-def update_stack_sanitation(x_axis_column_name, residence_type):
+def histogram(x_axis_column_name, residence_type):
     dff = df_sanitation[df_sanitation['Country'].isin(x_axis_column_name)]
+    dff = dff.sort_values(by='Year')
 
     fig = px.histogram(dff[dff['Residence Area Type'] == residence_type], x='Country', y='Display Value',
                        histfunc='avg',
-                       color='Country', title="Bar Chart Showing Average Percentage (%) of Population using safely " + "<br>" +
-                                              "managed sanitation services",
-                       color_discrete_map=c)
+                       color='Country', title=f"Bar chart showing average percentage (%) of population using safely " + "<br>" +
+                                              f"managed sanitation services {dff['Year'].min()}-{dff['Year'].max()}",
+                       color_discrete_map=c,
+                       )
+
     fig.update_layout(transition={'duration': 100,
                                   'easing': 'linear'})
 
@@ -202,15 +208,17 @@ def update_stack_sanitation(x_axis_column_name, residence_type):
     Input("country_dropdown", "value"),
     Input("residence_dropdown", "value")
 )
-def update_line_sanitation(x_axis_column_name, residence_type):
+def line_chart(x_axis_column_name, residence_type):
 
     dff = df_sanitation[df_sanitation['Country'].isin(x_axis_column_name)]
     dff = dff.sort_values(by='Year')
 
     fig = px.line(dff[dff['Residence Area Type'] == residence_type], x='Year', y='Display Value', markers=True,
-                      color='Country', title="Line Chart Showing Population using safely " + "<br>" +
-                                             "safely managed sanitation services (%)",
-                  color_discrete_map=c)
+                      color='Country', title=f"Line chart showing population using safely " + "<br>" +
+                                             f"safely managed sanitation services (%) {dff['Year'].min()}-{dff['Year'].max()}",
+                  color_discrete_map=c,
+                 )
+
     fig.update_layout(transition={'duration': 100,
                                   'easing': 'linear'})
 
@@ -231,14 +239,17 @@ def download_df(n_clicks):
     Input("country_dropdown", "value"),
     Input("residence_dropdown", "value")
 )
-def update_stack_handwashing(x_axis_column_name, residence_type):
+def histogram(x_axis_column_name, residence_type):
     dff = df_handwashing[df_handwashing['Country'].isin(x_axis_column_name)]
+    dff = dff.sort_values(by='Year')
 
     fig = px.histogram(dff[dff['Residence Area Type'] == residence_type], x='Country', y='Display Value',
                        histfunc='avg',
-                       color='Country', title="Bar Chart Showing Average Percentage (%) of Population using " + "<br>" +
-                                              "basic handwashing facilities at home",
-                       color_discrete_map=c)
+                       color='Country', title=f"Bar chart showing average percentage (%) of population using " + "<br>" +
+                                              f"basic handwashing facilities at home {dff['Year'].min()}-{dff['Year'].max()}",
+                       color_discrete_map=c,
+                       )
+
     fig.update_layout(transition={'duration': 100,
                                   'easing': 'linear'})
 
@@ -250,15 +261,17 @@ def update_stack_handwashing(x_axis_column_name, residence_type):
     Input("country_dropdown", "value"),
     Input("residence_dropdown", "value")
 )
-def update_line_handwashing(x_axis_column_name, residence_type):
+def line_chart(x_axis_column_name, residence_type):
 
     dff = df_handwashing[df_handwashing['Country'].isin(x_axis_column_name)]
     dff = dff.sort_values(by='Year')
 
     fig = px.line(dff[dff['Residence Area Type'] == residence_type], x='Year', y='Display Value', markers=True,
-                      color='Country', title="Line Chart Showing Population using " + "<br>" +
-                                             "basic handwashing facilities at home (%)",
-                  color_discrete_map=c)
+                      color='Country', title=f"Line chart showing population using " + "<br>" +
+                                             f"basic handwashing facilities at home (%) {dff['Year'].min()}-{dff['Year'].max()}",
+                  color_discrete_map=c,
+                  )
+
     fig.update_layout(transition={'duration': 100,
                                   'easing': 'linear'})
 
@@ -279,14 +292,17 @@ def download_df(n_clicks):
     Input("country_dropdown", "value"),
     Input("residence_dropdown", "value")
 )
-def update_stack_defecation(x_axis_column_name, residence_type):
+def histogram(x_axis_column_name, residence_type):
     dff = df_defecation[df_defecation['Country'].isin(x_axis_column_name)]
+    dff = dff.sort_values(by='Year')
 
     fig = px.histogram(dff[dff['Residence Area Type'] == residence_type], x='Country', y='Display Value',
                        histfunc='avg',
-                       color='Country', title="Bar Chart showing average percentage of " + "<br>" +
-                                              "population practising open defecation (% Average)",
-                       color_discrete_map=c)
+                       color='Country', title=f"Bar chart showing average percentage of " + "<br>" +
+                                              f"population practising open defecation (% Average) {dff['Year'].min()}-{dff['Year'].max()}",
+                       color_discrete_map=c,
+                       )
+
     fig.update_layout(transition={'duration': 100,
                                   'easing': 'linear'})
 
@@ -298,14 +314,16 @@ def update_stack_defecation(x_axis_column_name, residence_type):
     Input("country_dropdown", "value"),
     Input("residence_dropdown", "value")
 )
-def update_line_defecation(x_axis_column_name, residence_type):
+def line_chart(x_axis_column_name, residence_type):
 
     dff = df_defecation[df_defecation['Country'].isin(x_axis_column_name)]
     dff = dff.sort_values(by='Year')
 
     fig = px.line(dff[dff['Residence Area Type'] == residence_type], x='Year', y='Display Value', markers=True,
-                      color='Country', title="Line Chart Showing Population practising open defecation (%)",
-                  color_discrete_map=c)
+                      color='Country', title=f"Line chart showing population practising open defecation (%) {dff['Year'].min()}-{dff['Year'].max()}",
+                  color_discrete_map=c,
+                  )
+
     fig.update_layout(transition={'duration': 100,
                                   'easing': 'linear'})
 
