@@ -12,6 +12,7 @@ df_defecation = pd.read_csv("archive/Open defecation.csv")
 # External stylesheets
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
 # Map countries to color
 c = dict(zip(df_drinking.Country.unique(), px.colors.qualitative.Plotly))
@@ -27,6 +28,8 @@ app.layout = html.Div([
     *Some indicators could have duplicate values, thus the reason for some line graphs appearing in a zigzag format* 
     
     *This is especially for `Total` and `Urban` variables*
+    
+    *These sanitation datasets were sourced from Kaggle: https://www.kaggle.com/datasets/navinmundhra/world-sanitation*
     '''),
 
     html.Hr(),
