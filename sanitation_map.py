@@ -13,18 +13,18 @@ dataframes = {"Drinking_water_dataframe": df_drinking,
               "Open_defecation": df_open_defecation}
 
 dataframe_dict = {"Titles": ["Drinking_water_dataframe", "Sanitation_services_dataframe", "Handwashing_dataframe", "Open_defecation"],
-              "Dataframes": ['df_drinking', 'df_sanitation', 'df_handwashing', 'df_open_defecation'] }
+              "Dataframes": ['drinking', 'sanitation', 'handwashing', 'open_defecation'] }
 dataframe_table = pd.DataFrame(dataframe_dict)
 
 # Function to get minimum and maximum year value in each dataframe
 for dataframe in dataframe_table["Dataframes"]:
-    if dataframe == "df_drinking":
+    if dataframe == "drinking":
         min_year = df_drinking["Year"].min()
         max_year = df_drinking["Year"].max()
-    elif dataframe == "df_sanitation":
+    elif dataframe == "sanitation":
         min_year = df_sanitation["Year"].min()
         max_year = df_sanitation["Year"].max()
-    elif dataframe == "df_handwashing":
+    elif dataframe == "handwashing":
         min_year = df_handwashing["Year"].min()
         max_year = df_handwashing["Year"].max()
     else:
@@ -43,7 +43,7 @@ app.layout = html.Div(children=[
         # The Dropdown to select the dataframes
             dcc.Dropdown(#options=['df_drinking', 'df_handwashing'],
                 options=dataframe_table["Dataframes"].unique(),
-                value='df_drinking',
+                value='drinking',
                 id="dataframe_dropdown",
                 style={"width": "50%", "display": "inline-block"})
         ]),
@@ -69,17 +69,18 @@ app.layout = html.Div(children=[
     dcc.Graph(id="sanitation_map"),
 
     # Add slider for year
-    dcc.Slider(min=min_year, max=max_year, value=min_year, step=1, marks={str(year): str(year) for year in range(min_year, max_year + 1)},
+    dcc.Slider(min=min_year, max=max_year, value=min_year, step=None, marks={str(year): str(year) for year in range(min_year, max_year + 1)},
                included=False, id="year_slider")
 ])
 
 # Show the selected dataframe
 @app.callback(
     Output("dataframe_dropdown_output", "children"),
-    Input("dataframe_dropdown", "value")
+    Input("dataframe_dropdown", "value"),
+    Input("residence_area_type", "value")
 )
-def dropdown_output(value):
-    return f"You have chosen the {value} dataframe"
+def dropdown_output(value, residence_value):
+    return f"You have chosen the {value} dataframe and the {residence_value} Residence Area Type option"
 
 # Draw a plotly map based on the dropdown value chosen
 @app.callback(
@@ -89,11 +90,11 @@ def dropdown_output(value):
     Input("residence_area_type", "value")
 )
 def choropleth_map(dataframe_dropdown, year_slider, residence_area_type):
-    if dataframe_dropdown == "df_drinking":
+    if dataframe_dropdown == "drinking":
         df = df_drinking
-    elif dataframe_dropdown == "df_sanitation":
+    elif dataframe_dropdown == "sanitation":
         df = df_sanitation
-    elif dataframe_dropdown == "df_handwashing":
+    elif dataframe_dropdown == "handwashing":
         df = df_handwashing
     else:
         df = df_open_defecation
@@ -111,8 +112,6 @@ def choropleth_map(dataframe_dropdown, year_slider, residence_area_type):
 
 if __name__ == "__main__":
     app.run_server(debug=True)
-
-
 
 
 
