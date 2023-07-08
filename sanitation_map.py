@@ -2,14 +2,17 @@ import plotly.express as px
 import pandas as pd
 from dash import Dash, dcc, Input, Output, html
 
+# The sanitation dataframes from Kaggle: https://www.kaggle.com/datasets/navinmundhra/world-sanitation
 df_drinking = pd.read_csv("archive/Basic and safely managed drinking water services.csv")
 df_sanitation = pd.read_csv("archive/Basic and safely managed sanitation services.csv")
 df_handwashing = pd.read_csv("archive/Handwashing with soap.csv")
 df_open_defecation = pd.read_csv("archive/Open defecation.csv")
 
+# This dictionary will help in matching the string options from the dash dropdown to the correct datasets
 dataframe_dict = {"Titles": ["Drinking_water_dataframe", "Sanitation_services_dataframe", "Handwashing_dataframe", "Open_defecation"],
               "Dataframes": ['drinking', 'sanitation', 'handwashing', 'open_defecation'] }
 
+# Convert the `dataframe_dict` dictionary to a pandas dataframe
 dataframe_table = pd.DataFrame(dataframe_dict)
 
 # Function to get minimum and maximum year value in each dataframe
@@ -29,8 +32,10 @@ for dataframe in dataframe_table["Dataframes"]:
 
 # CSS styling
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
+# Layout for our data visualization application
 app.layout = html.Div(children=[
     # The interactive plotly map
     html.Div(className="row", children=[
@@ -60,16 +65,27 @@ app.layout = html.Div(children=[
     html.Div(id="dataframe_dropdown_output"),
 
     html.Br(),
+    html.Br(),
 
     # The interactive plotly map
     dcc.Graph(id="sanitation_map"),
+
+    html.Br(),
 
     # Add slider for year
     dcc.Slider(min=min_year, max=max_year, value=min_year, step=None, marks={str(year): str(year) for year in range(min_year, max_year + 1)},
                included=False, id="year_slider"),
 
     # The Line graph
-    dcc.Graph(id="line_graph")
+    dcc.Graph(id="line_graph"),
+
+    html.Br(),
+
+    # The button to download the dataframe selected in the dropdown
+    html.Div([
+        html.Button("Download CSV Dataframe in Dropdown", id="btn_csv"),
+        dcc.Download(id="download_selected_dataframe")
+    ])
 
 ])
 
@@ -112,7 +128,10 @@ def choropleth_map(dataframe_dropdown, year_slider, residence_area_type):
 
 # Draw the drinking line graph
 ## First create the function that will automatically plot the map based on country name (from hover), the dataframe
-## selected (from dropdown) and the residence type (from dropdown also)
+## selected (from dropdown) and the residence type (from dropdown also). Thanks to Stack Overflow at
+# this link: https://stackoverflow.com/questions/76639315/make-the-line-graph-update-based-on-the-country-clicked-on-the-plotly-choropleth/76639830?noredirect=1#comment135126637_76639830
+
+# The below custom function matches the string selected in the dash dropdown to the correct dataframe
 def check_dropdown(dataframe_dropdown):
     if dataframe_dropdown == "drinking":
         df = df_drinking
@@ -150,9 +169,25 @@ def create_graph(clickData, dataframe_dropdown, residence_area_type):
     #
     fig = px.line(dff, x="Year", y="Display Value", markers=True)
 
-    fig.update_layout(title=dict(text=f"{dff['Indicator'].iloc[0]} for {country_name} and Residence Type {residence_area_type}"))
+    fig.update_layout(
+        title=dict(text=f"{dff['Indicator'].iloc[0]} for {country_name} and Residence Type - {residence_area_type} for years: ({dff['Year'].min()}-{dff['Year'].max()})"))
 
     return fig
+
+# The function to download the dataframe selected in the dropdown
+@app.callback(
+    Output("download_selected_dataframe", "data"),
+    Input("btn_csv", "n_clicks"),
+    Input("dataframe_dropdown", "value"),
+    prevent_initial_call=True
+)
+def download_dataframe_dropdown(n_clicks, dataframe_dropdown):
+    df = check_dropdown(dataframe_dropdown) # Reusing the `checkdown` function to match the dropdown selection to the
+    # the correct dataframe
+
+    # Send the dataframe selected in dropdown to computer directory as CSV file, with prefix of dataframe selected in
+    # dropdown
+    return dcc.send_data_frame(df.to_csv, f"{dataframe_dropdown}.csv")
 
 if __name__ == "__main__":
     app.run_server(debug=True)
