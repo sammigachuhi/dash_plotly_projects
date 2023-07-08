@@ -7,13 +7,9 @@ df_sanitation = pd.read_csv("archive/Basic and safely managed sanitation service
 df_handwashing = pd.read_csv("archive/Handwashing with soap.csv")
 df_open_defecation = pd.read_csv("archive/Open defecation.csv")
 
-dataframes = {"Drinking_water_dataframe": df_drinking,
-              "Sanitation_services_dataframe": df_sanitation,
-              "Handwashing_dataframe": df_handwashing,
-              "Open_defecation": df_open_defecation}
-
 dataframe_dict = {"Titles": ["Drinking_water_dataframe", "Sanitation_services_dataframe", "Handwashing_dataframe", "Open_defecation"],
               "Dataframes": ['drinking', 'sanitation', 'handwashing', 'open_defecation'] }
+
 dataframe_table = pd.DataFrame(dataframe_dict)
 
 # Function to get minimum and maximum year value in each dataframe
@@ -70,7 +66,11 @@ app.layout = html.Div(children=[
 
     # Add slider for year
     dcc.Slider(min=min_year, max=max_year, value=min_year, step=None, marks={str(year): str(year) for year in range(min_year, max_year + 1)},
-               included=False, id="year_slider")
+               included=False, id="year_slider"),
+
+    # The Line graph
+    dcc.Graph(id="line_graph")
+
 ])
 
 # Show the selected dataframe
@@ -104,9 +104,53 @@ def choropleth_map(dataframe_dropdown, year_slider, residence_area_type):
     dff = dff.sort_values(by="Year")
 
     fig = px.choropleth(dff, locations="Country", locationmode="country names", color="Display Value", projection="mercator",
-                        scope="world", width=1000)
+                       hover_name="Country", scope="world", width=1000, custom_data="Country")
 
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+
+    return fig
+
+# Draw the drinking line graph
+## First create the function that will automatically plot the map based on country name (from hover), the dataframe
+## selected (from dropdown) and the residence type (from dropdown also)
+def check_dropdown(dataframe_dropdown):
+    if dataframe_dropdown == "drinking":
+        df = df_drinking
+    elif dataframe_dropdown == "sanitation":
+        df = df_sanitation
+    elif dataframe_dropdown == "handwashing":
+        df = df_handwashing
+    else:
+        df = df_open_defecation
+
+    return df
+
+
+# Now create the graph that updates the country name based on hover and showing Years on x-axis and Display value
+# of chosen dataframe on y-axis
+@app.callback(
+    Output("line_graph", "figure"),
+    Input("sanitation_map", "clickData"),
+    Input("dataframe_dropdown", "value"),
+    Input("residence_area_type", "value"),
+)
+def create_graph(clickData, dataframe_dropdown, residence_area_type):
+    if clickData is None:
+        country_name = "Kenya"
+    else:
+        country_name = clickData["points"][0]["hovertext"]
+
+    # country_name = clickData["points"][0]["customdata"]
+    df = check_dropdown(dataframe_dropdown)
+
+    dff = df[df["Country"] == country_name]
+    dff = dff[dff["Residence Area Type"] == residence_area_type]
+
+    dff.sort_values(by="Year")
+    #
+    fig = px.line(dff, x="Year", y="Display Value", markers=True)
+
+    fig.update_layout(title=dict(text=f"{dff['Indicator'].iloc[0]} for {country_name} and Residence Type {residence_area_type}"))
 
     return fig
 
