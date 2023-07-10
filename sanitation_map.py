@@ -98,11 +98,32 @@ app.layout = html.Div(children=[
 
     html.Br(),
 
-    # The button to download the dataframe selected in the dropdown
-    html.Div([
-        html.Button("Download CSV Dataframe in Dropdown", id="btn_csv"),
-        dcc.Download(id="download_selected_dataframe")
-    ])
+    # The button to download the respective dataframes
+    html.Div(className="row", children=[
+        # Download drinking dataframe
+        html.Div([
+            html.Button("Download Drinking Dataframe CSV", id="drinking_csv"),
+            dcc.Download(id="download_drinking_dataframe")
+        ]),
+        html.Br(),
+        # Download sanitation dataframe
+        html.Div([
+            html.Button("Download Sanitation Dataframe CSV", id="sanitation_csv"),
+            dcc.Download(id="download_sanitation_dataframe")
+        ]),
+        html.Br(),
+        # Download handwashing dataframe
+        html.Div([
+            html.Button("Download Handwashing Dataframe CSV", id="handwashing_csv"),
+            dcc.Download(id="download_handwashing_dataframe")
+        ]),
+        html.Br(),
+        # Download open defecation dataframe
+        html.Div([
+            html.Button("Download Open Defecation Dataframe CSV", id="open_defecation_csv"),
+            dcc.Download(id="download_open_defecation_dataframe")
+        ]),
+    ], style={"display": "inline-block"})
 
 ])
 
@@ -190,20 +211,41 @@ def create_graph(clickData, dataframe_dropdown, residence_area_type):
 
     return fig
 
-# The function to download the dataframe selected in the dropdown
+# The function to download the drinking dataframe
 @app.callback(
-    Output("download_selected_dataframe", "data"),
-    Input("btn_csv", "n_clicks"),
-    Input("dataframe_dropdown", "value"),
+    Output("download_drinking_dataframe", "data"),
+    Input("drinking_csv", "n_clicks"),
     prevent_initial_call=True
 )
-def download_dataframe_dropdown(n_clicks, dataframe_dropdown):
-    df = check_dropdown(dataframe_dropdown) # Reusing the `checkdown` function to match the dropdown selection to the
-    # the correct dataframe
+def download_dataframe(n_clicks):
+    return dcc.send_data_frame(df_drinking.to_csv, "drinking.csv")
 
-    # Send the dataframe selected in dropdown to computer directory as CSV file, with prefix of dataframe selected in
-    # dropdown
-    return dcc.send_data_frame(df.to_csv, f"{dataframe_dropdown}.csv")
+# The function to download the sanitation dataframe
+@app.callback(
+    Output("download_sanitation_dataframe", "data"),
+    Input("sanitation_csv", "n_clicks"),
+    prevent_initial_call=True
+)
+def download_dataframe(n_clicks):
+    return dcc.send_data_frame(df_sanitation.to_csv, "sanitation.csv")
+
+# The function to download the handwashing dataframe
+@app.callback(
+    Output("download_handwashing_dataframe", "data"),
+    Input("handwashing_csv", "n_clicks"),
+    prevent_initial_call=True
+)
+def download_dataframe(n_clicks):
+    return dcc.send_data_frame(df_handwashing.to_csv, "handwashing.csv")
+
+# The function to download the open defecation dataframe
+@app.callback(
+    Output("download_open_defecation_dataframe", "data"),
+    Input("open_defecation_csv", "n_clicks"),
+    prevent_initial_call=True
+)
+def download_dataframe(n_clicks):
+    return dcc.send_data_frame(df_open_defecation.to_csv, "open_defecation.csv")
 
 if __name__ == "__main__":
     app.run_server(debug=True)
