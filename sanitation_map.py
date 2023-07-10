@@ -37,7 +37,24 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 # Layout for our data visualization application
 app.layout = html.Div(children=[
-    # The interactive plotly map
+    # Title for the data visualization app showing a map of sanitation indicators worldwide by year and a graph for trend
+    # of sanitation indicators by country
+    html.H2("Data Visualization showing trend of sanitation indicators by country and year worldwide"),
+
+    html.Br(),
+
+    # Show source of the sanitation data
+    dcc.Markdown(
+        '''
+        The dataset used in creating this visualization has been sourced 
+        from [Kaggle](https://www.kaggle.com/datasets/navinmundhra/world-sanitation)
+        ''',
+        link_target="_blank"
+    ),
+
+    html.Br(),
+
+    # The dataframe and residence type dropdowns
     html.Div(className="row", children=[
 
         html.Div(className="six columns", children=[
@@ -65,10 +82,9 @@ app.layout = html.Div(children=[
     html.Div(id="dataframe_dropdown_output"),
 
     html.Br(),
-    html.Br(),
 
     # The interactive plotly map
-    dcc.Graph(id="sanitation_map"),
+    dcc.Graph(id="sanitation_map", style={"padding": 20}),
 
     html.Br(),
 
@@ -119,10 +135,10 @@ def choropleth_map(dataframe_dropdown, year_slider, residence_area_type):
     dff = dff[dff["Residence Area Type"] == residence_area_type]
     dff = dff.sort_values(by="Year")
 
-    fig = px.choropleth(dff, locations="Country", locationmode="country names", color="Display Value", projection="mercator",
+    fig = px.choropleth(dff, locations="Country", locationmode="country names", color="Display Value", projection="orthographic",
                        hover_name="Country", scope="world", width=1000, custom_data="Country")
 
-    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    fig.update_layout(margin={"r": 0, "l": 0, "b": 0}, title={"text": f"World Sanitation and Health by Country in {year_slider}"})
 
     return fig
 
@@ -143,7 +159,6 @@ def check_dropdown(dataframe_dropdown):
         df = df_open_defecation
 
     return df
-
 
 # Now create the graph that updates the country name based on hover and showing Years on x-axis and Display value
 # of chosen dataframe on y-axis
