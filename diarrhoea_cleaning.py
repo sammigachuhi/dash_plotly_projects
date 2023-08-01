@@ -4,6 +4,7 @@ import numpy as np
 import plotly.express as px
 from dash import Dash, dcc, html, Input, Output
 import json
+import time
 
 styles = {
     'pre': {
@@ -51,6 +52,19 @@ server = app.server
 # Create the layout
 app.layout = html.Div([
 
+    #0 The heading
+    html.H2(f"Diarrhoea related deaths amongs children <5 years, World"),
+
+    html.Br(),
+
+    dcc.Markdown("""
+    Source: [Our World in Data](https://ourworldindata.org/childhood-diarrheal-diseases?utm_source=pocket_reader)
+    
+    Our World In Data is a project of the Global Change Data Lab, a registered charity in England 
+    and Wales (Charity Number 1186433).
+    """,
+                 link_target="_blank"),
+
     #1 the map layout
     dcc.Graph(id="map-year"),
 
@@ -73,14 +87,14 @@ app.layout = html.Div([
     html.Br(),
 
     ###### This is to help in debugging capturing the clicked country on the choropleth map
-    html.Div([
-        dcc.Markdown("""
-                **Click Data**
-
-                Click on points in the graph.
-                """),
-        html.Pre(id='click-data', style=styles['pre']),
-        ], className='three columns'),
+    # html.Div([
+    #     dcc.Markdown("""
+    #             **Click Data**
+    #
+    #             Click on points in the graph.
+    #             """),
+    #     html.Pre(id='click-data', style=styles['pre']),
+    #     ], className='three columns'),
     ##########
 
     #4 Draw line graph of population of selected country dependent on country selected on map and likewise for
@@ -91,7 +105,7 @@ app.layout = html.Div([
     ]),
 
     #5 Draw bar graph of diarrhoea related deaths across the years
-    dcc.Graph(id="diarrhoea-bar-graph")
+    dcc.Graph(id="diarrhoea-bar-graph"),
 
 ])
 
@@ -109,7 +123,9 @@ def update_map(year_slider):
                         hover_name="Year",
                         color_continuous_scale=px.colors.sequential.Plasma,
                         title=f"Map showing deaths from diarrhoeal diseases for children <5 years in {year_slider}",
-                        custom_data=["Entity"])
+                        custom_data=["Entity"],
+                        labels={
+                            "Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)": "Deaths"})
 
     fig.update_layout(transition={"easing": "elastic-out"})
 
@@ -129,9 +145,11 @@ def update_heatmap(year_slider):
                      color="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)", hover_name="Year",
                      hover_data="GDP per capita, PPP (constant 2017 international $)",
                      color_continuous_scale=px.colors.sequential.Plasma,
-                     color_continuous_midpoint=np.average(dff["Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)"],
-                                                          weights=dff["GDP per capita, PPP (constant 2017 international $)"]),
-                     title=f"Treemap Chart showing deaths from diarrhoeal diseases for children <5 years in {year_slider}",
+                     color_continuous_midpoint=np.average(
+                         dff["Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)"],
+                         weights=dff["GDP per capita, PPP (constant 2017 international $)"]),
+                     title=f"Treemap Chart showing deaths from diarrhoeal diseases" + "<br>" +
+                           f"for children <5 years in {year_slider}",
                      labels={"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)": "Deaths"})
 
     fig.update_layout(transition={"easing": "elastic-out",
@@ -154,7 +172,9 @@ def update_scatterplot(year_slider):
                      color="sub-region",
                      size="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)", hover_name="Entity",
                      hover_data="GDP per capita, PPP (constant 2017 international $)",
-                     title=f"Scatterplot showing Deaths from Diarrhoea cases against GDP per capita, PPP (constant 2017 international $ for {year_slider}")
+                     title=f"Scatterplot showing Deaths from Diarrhoea cases against GDP per capita," + "<br>" +
+                           f"PPP (constant 2017 international $ for {year_slider}",
+                     labels={"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)": "Deaths"})
 
     fig.update_layout(transition={"easing": "elastic-out",
                                   "duration": 50})
@@ -162,11 +182,11 @@ def update_scatterplot(year_slider):
     return fig
 
 ########
-@app.callback(
-    Output('click-data', 'children'),
-    Input('map-year', 'clickData'))
-def display_click_data(clickData):
-    return json.dumps(clickData, indent=2)
+# @app.callback(
+#     Output('click-data', 'children'),
+#     Input('map-year', 'clickData'))
+# def display_click_data(clickData):
+#     return json.dumps(clickData, indent=2)
 
 ######
 
@@ -188,7 +208,8 @@ def line_population(clickData):
                   )
     #
     fig.update_layout(
-        title={"text": f"Population (historical estimates) for {country_name} ({dff['Year'].min()} - {dff['Year'].max()})"}
+        title={"text": f"Population (historical estimates) for {country_name}" + "<br>" +
+                       f"({dff['Year'].min()} - {dff['Year'].max()})"}
     )
     #
     return fig
@@ -207,11 +228,13 @@ def line_capita(clickData):
     dff = df[df["Entity"] == country_name]
     dff = dff.sort_values(by="Year")
 
-    fig = px.line(dff, x="Year", y="GDP per capita, PPP (constant 2017 international $)", markers=True)
+    fig = px.line(dff, x="Year", y="GDP per capita, PPP (constant 2017 international $)", markers=True,
+                  labels={"GDP per capita, PPP (constant 2017 international $)": "GDP per Capita"})
 
     fig.update_layout(
         title={
-            "text": f"GDP per capita, PPP (constant 2017 international $) for {country_name} ({dff['Year'].min()} - {dff['Year'].max()})"}
+            "text": f"GDP per capita, PPP (constant 2017 international $)" + "<br>" +
+                    f"for {country_name} ({dff['Year'].min()} - {dff['Year'].max()})"}
     )
 
     return fig
@@ -236,7 +259,9 @@ def update_bar_graph(clickData):
                  labels={"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)": "Deaths"},
                  color="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)")
 
-    fig.update_layout(title={"text": f"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate) for {country_name}"})
+    fig.update_layout(title={"text": f"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)" + "<br>" +
+                                     f"for {country_name} ({dff['Year'].min()} - {dff['Year'].max()})"})
+
 
     return fig
 
