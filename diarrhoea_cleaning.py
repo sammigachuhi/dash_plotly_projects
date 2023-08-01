@@ -3,6 +3,14 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 from dash import Dash, dcc, html, Input, Output
+import json
+
+styles = {
+    'pre': {
+        'border': 'thin lightgrey solid',
+        'overflowX': 'scroll'
+    }
+}
 
 # Source of the data used is: https://ourworldindata.org/childhood-diarrheal-diseases?utm_source=pocket_saves
 # from the download section of compound line graph
@@ -60,7 +68,25 @@ app.layout = html.Div([
     html.Div([
         dcc.Graph(id="heat-map-country-year"),
         dcc.Graph(id="scatterplot-death-gdp-year")
-    ])
+    ]),
+
+    html.Br(),
+
+    html.Div([
+        dcc.Markdown("""
+                **Click Data**
+
+                Click on points in the graph.
+                """),
+        html.Pre(id='click-data', style=styles['pre']),
+        ], className='three columns'),
+
+    #4 Draw line graph of population of selected country dependent on country selected on map and likewise for
+    # gdp per capita in one row
+    html.Div([
+        dcc.Graph(id="line-graph-population", style={"width": "48%", "display": "inline-block"}),
+        dcc.Graph(id="line-graph-gdp-capita", style={"width": "48%", "display": "inline-block"})
+    ]),
 
 ])
 
@@ -77,7 +103,8 @@ def update_map(year_slider):
                         color="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)",
                         hover_name="Year",
                         color_continuous_scale=px.colors.sequential.Plasma,
-                        title=f"Map showing deaths from diarrhoeal diseases for children <5 years in {year_slider}")
+                        title=f"Map showing deaths from diarrhoeal diseases for children <5 years in {year_slider}",
+                        custom_data=["Entity"])
 
     fig.update_layout(transition={"easing": "elastic-out"})
 
@@ -97,6 +124,8 @@ def update_heatmap(year_slider):
                      color="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)", hover_name="Year",
                      hover_data="GDP per capita, PPP (constant 2017 international $)",
                      color_continuous_scale=px.colors.sequential.Plasma,
+                     color_continuous_midpoint=np.average(dff["Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)"],
+                                                          weights=dff["GDP per capita, PPP (constant 2017 international $)"]),
                      title=f"Treemap Chart showing deaths from diarrhoeal diseases for children <5 years in {year_slider}",
                      labels={"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)": "Deaths"})
 
@@ -124,6 +153,60 @@ def update_scatterplot(year_slider):
 
     fig.update_layout(transition={"easing": "elastic-out",
                                   "duration": 50})
+
+    return fig
+
+########
+@app.callback(
+    Output('click-data', 'children'),
+    Input('map-year', 'clickData'))
+def display_click_data(clickData):
+    return json.dumps(clickData, indent=2)
+
+######
+
+#4.1 Callback for line graph for population against years
+@app.callback(
+    Output("line-graph-population", "figure"),
+    Input("map-year", "clickData")
+)
+def line_population(clickData):
+    if clickData is None:
+        country_name = "Kenya"
+    else:
+        country_name = clickData["points"][0]["location"]
+
+    dff = df[df["Entity"] == country_name]
+    dff = dff.sort_values(by="Year")
+    #
+    fig = px.line(dff, x="Year", y="Population (historical estimates)", markers=True,
+                  )
+    #
+    fig.update_layout(
+        title={"text": f"Population (historical estimates) for {country_name} ({dff['Year'].min()} - {dff['Year'].max()})"}
+    )
+    #
+    return fig
+
+#4.2 Callback for line graph for gdp-per-capita against years
+@app.callback(
+    Output("line-graph-gdp-capita", "figure"),
+    Input("map-year", "clickData")
+)
+def line_capita(clickData):
+    if clickData is None:
+        country_name = "Kenya"
+    else:
+        country_name = clickData["points"][0]["location"]
+
+    dff = df[df["Entity"] == country_name]
+
+    fig = px.line(dff, x="Year", y="GDP per capita, PPP (constant 2017 international $)", markers=True)
+
+    fig.update_layout(
+        title={
+            "text": f"GDP per capita, PPP (constant 2017 international $) for {country_name} ({dff['Year'].min()} - {dff['Year'].max()})"}
+    )
 
     return fig
 
