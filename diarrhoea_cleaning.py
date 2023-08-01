@@ -72,6 +72,7 @@ app.layout = html.Div([
 
     html.Br(),
 
+    ###### This is to help in debugging capturing the clicked country on the choropleth map
     html.Div([
         dcc.Markdown("""
                 **Click Data**
@@ -80,6 +81,7 @@ app.layout = html.Div([
                 """),
         html.Pre(id='click-data', style=styles['pre']),
         ], className='three columns'),
+    ##########
 
     #4 Draw line graph of population of selected country dependent on country selected on map and likewise for
     # gdp per capita in one row
@@ -87,6 +89,9 @@ app.layout = html.Div([
         dcc.Graph(id="line-graph-population", style={"width": "48%", "display": "inline-block"}),
         dcc.Graph(id="line-graph-gdp-capita", style={"width": "48%", "display": "inline-block"})
     ]),
+
+    #5 Draw bar graph of diarrhoea related deaths across the years
+    dcc.Graph(id="diarrhoea-bar-graph")
 
 ])
 
@@ -200,6 +205,7 @@ def line_capita(clickData):
         country_name = clickData["points"][0]["location"]
 
     dff = df[df["Entity"] == country_name]
+    dff = dff.sort_values(by="Year")
 
     fig = px.line(dff, x="Year", y="GDP per capita, PPP (constant 2017 international $)", markers=True)
 
@@ -207,6 +213,30 @@ def line_capita(clickData):
         title={
             "text": f"GDP per capita, PPP (constant 2017 international $) for {country_name} ({dff['Year'].min()} - {dff['Year'].max()})"}
     )
+
+    return fig
+
+#5 Callbacks to draw bar graph for diarrhoea related deaths
+@app.callback(
+    Output("diarrhoea-bar-graph", "figure"),
+    Input("map-year", "clickData")
+)
+def update_bar_graph(clickData):
+    if clickData is None:
+        country_name = "Kenya"
+    else:
+        country_name = clickData["points"][0]["location"]
+
+    dff = df[df["Entity"] == country_name]
+    dff = dff.sort_values(by="Year")
+
+    fig = px.bar(dff, x="Year", y="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)",
+                 hover_data=["GDP per capita, PPP (constant 2017 international $)", "Population (historical estimates)",
+                             "sub-region"],
+                 labels={"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)": "Deaths"},
+                 color="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)")
+
+    fig.update_layout(title={"text": f"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate) for {country_name}"})
 
     return fig
 
