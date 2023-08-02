@@ -40,7 +40,7 @@ df_code["Code"] = df_code["alpha-3"]
 df = pd.merge(df, df_code[["Code", "sub-region"]], on="Code", how="left") # Merge with country `Code` to their continents
 
 # Remove all rows with value `None` in column `sub-region`
-df = df.dropna(subset="sub-region")
+df = df.dropna(subset=["sub-region"])
 
 # Save the cleaned dataframe
 # df.to_csv("data/cleaned_df2.csv")
