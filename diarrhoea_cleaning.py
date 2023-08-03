@@ -53,7 +53,7 @@ server = app.server
 app.layout = html.Div([
 
     #0 The heading
-    html.H2(f"Diarrhoea related deaths amongs children <5 years, World"),
+    html.H2(f"Diarrhoea related deaths amongst children <5 years, World"),
 
     html.Br(),
 
