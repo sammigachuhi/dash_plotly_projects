@@ -171,7 +171,7 @@ def update_scatterplot(year_slider):
                      y="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)",
                      color="sub-region",
                      size="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)", hover_name="Entity",
-                     hover_data="GDP per capita, PPP (constant 2017 international $)",
+                     hover_data="Entity",
                      title=f"Scatterplot showing Deaths from Diarrhoea cases against GDP per capita," + "<br>" +
                            f"PPP (constant 2017 international $ for {year_slider}",
                      labels={"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)": "Deaths"})
