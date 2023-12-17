@@ -52,23 +52,23 @@ server = app.server
 # Create the layout
 app.layout = html.Div([
 
-    #0 The heading
+    # 0 The heading
     html.H2(f"Diarrhoea related deaths amongst children <5 years, World"),
 
     html.Br(),
 
     dcc.Markdown("""
     Source: [Our World in Data](https://ourworldindata.org/childhood-diarrheal-diseases?utm_source=pocket_reader)
-    
+
     Our World In Data is a project of the Global Change Data Lab, a registered charity in England 
     and Wales (Charity Number 1186433).
     """,
                  link_target="_blank"),
 
-    #1 the map layout
+    # 1 the map layout
     dcc.Graph(id="map-year"),
 
-    #2 The slider
+    # 2 The slider
     dcc.Slider(
         df["Year"].min(),
         df["Year"].max(),
@@ -78,34 +78,32 @@ app.layout = html.Div([
         marks={str(year): str(year) for year in df["Year"].unique()}
     ),
 
-    #3 The heatmap and scatterplot on the same column
-    html.Div([
-        dcc.Graph(id="heat-map-country-year"),
-        dcc.Graph(id="scatterplot-death-gdp-year")
-    ]),
+# ##### This is to help in debugging capturing the clicked country on the choropleth map
+#     html.Div([
+#         dcc.Markdown("""
+#                 **Click Data**
+#
+#                 Click on points in the graph.
+#                 """),
+#         html.Pre(id='click-data', style=styles['pre']),
+#         ], className='three columns'),
+#     #########
 
-    html.Br(),
-
-    ###### This is to help in debugging capturing the clicked country on the choropleth map
-    # html.Div([
-    #     dcc.Markdown("""
-    #             **Click Data**
-    #
-    #             Click on points in the graph.
-    #             """),
-    #     html.Pre(id='click-data', style=styles['pre']),
-    #     ], className='three columns'),
-    ##########
-
-    #4 Draw line graph of population of selected country dependent on country selected on map and likewise for
+    # 3 Draw line graph of population of selected country dependent on country selected on map and likewise for
     # gdp per capita in one row
     html.Div([
         dcc.Graph(id="line-graph-population", style={"width": "48%", "display": "inline-block"}),
         dcc.Graph(id="line-graph-gdp-capita", style={"width": "48%", "display": "inline-block"})
     ]),
 
-    #5 Draw bar graph of diarrhoea related deaths across the years
+    # 5 Draw bar graph of diarrhoea related deaths across the years
     dcc.Graph(id="diarrhoea-bar-graph"),
+
+    # 4 The scatterplot and heatmap on the same column
+    html.Div([
+        dcc.Graph(id="scatterplot-death-gdp-year"),
+        dcc.Graph(id="heat-map-country-year")
+    ]),
 
 ])
 
@@ -131,66 +129,16 @@ def update_map(year_slider):
 
     return fig
 
-# Callbacks for #3 heatmap and scatterplot on the same page
-# Heatmap callback
-@app.callback(
-    Output("heat-map-country-year", "figure"),
-    Input("year-slider", "value")
-)
-def update_heatmap(year_slider):
-    dff = df[df["Year"] == year_slider]
-
-    fig = px.treemap(dff, names="Entity", path=["sub-region", "Entity"],
-                     values="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)",
-                     color="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)", hover_name="Year",
-                     hover_data="GDP per capita, PPP (constant 2017 international $)",
-                     color_continuous_scale=px.colors.sequential.Plasma,
-                     color_continuous_midpoint=np.average(
-                         dff["Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)"],
-                         weights=dff["GDP per capita, PPP (constant 2017 international $)"]),
-                     title=f"Treemap Chart showing deaths from diarrhoeal diseases" + "<br>" +
-                           f"for children <5 years in {year_slider}",
-                     labels={"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)": "Deaths"})
-
-    fig.update_layout(transition={"easing": "elastic-out",
-                                  "duration": 50},
-                      margin={"t":50, "l":25, "r":25, "b":25})
-
-    return fig
-
-# Scatterplot callback
-@app.callback(
-    Output("scatterplot-death-gdp-year", "figure"),
-    Input("year-slider", "value")
-)
-def update_scatterplot(year_slider):
-
-    dff = df[df["Year"] == year_slider]
-
-    fig = px.scatter(dff, x="GDP per capita, PPP (constant 2017 international $)",
-                     y="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)",
-                     color="sub-region",
-                     size="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)", hover_name="Entity",
-                     hover_data="Entity",
-                     title=f"Scatterplot showing Deaths from Diarrhoea cases against GDP per capita," + "<br>" +
-                           f"PPP (constant 2017 international $ for {year_slider}",
-                     labels={"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)": "Deaths"})
-
-    fig.update_layout(transition={"easing": "elastic-out",
-                                  "duration": 50})
-
-    return fig
-
-########
+# #######
 # @app.callback(
 #     Output('click-data', 'children'),
 #     Input('map-year', 'clickData'))
 # def display_click_data(clickData):
 #     return json.dumps(clickData, indent=2)
+#
+# #####
 
-######
-
-#4.1 Callback for line graph for population against years
+# 1 Callback for line graph for population against years
 @app.callback(
     Output("line-graph-population", "figure"),
     Input("map-year", "clickData")
@@ -199,7 +147,7 @@ def line_population(clickData):
     if clickData is None:
         country_name = "Kenya"
     else:
-        country_name = clickData["points"][0]["location"]
+        country_name = clickData["points"][0]["customdata"][0]
 
     dff = df[df["Entity"] == country_name]
     dff = dff.sort_values(by="Year")
@@ -214,7 +162,7 @@ def line_population(clickData):
     #
     return fig
 
-#4.2 Callback for line graph for gdp-per-capita against years
+# 2 Callback for line graph for gdp-per-capita against years
 @app.callback(
     Output("line-graph-gdp-capita", "figure"),
     Input("map-year", "clickData")
@@ -223,7 +171,7 @@ def line_capita(clickData):
     if clickData is None:
         country_name = "Kenya"
     else:
-        country_name = clickData["points"][0]["location"]
+        country_name = clickData["points"][0]["customdata"][0]
 
     dff = df[df["Entity"] == country_name]
     dff = dff.sort_values(by="Year")
@@ -239,7 +187,7 @@ def line_capita(clickData):
 
     return fig
 
-#5 Callbacks to draw bar graph for diarrhoea related deaths
+# 3 Callbacks to draw bar graph for diarrhoea related deaths
 @app.callback(
     Output("diarrhoea-bar-graph", "figure"),
     Input("map-year", "clickData")
@@ -262,6 +210,55 @@ def update_bar_graph(clickData):
     fig.update_layout(title={"text": f"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)" + "<br>" +
                                      f"for {country_name} ({dff['Year'].min()} - {dff['Year'].max()})"})
 
+    return fig
+
+# 4.1 Scatterplot callback
+@app.callback(
+    Output("scatterplot-death-gdp-year", "figure"),
+    Input("year-slider", "value")
+)
+def update_scatterplot(year_slider):
+    dff = df[df["Year"] == year_slider]
+
+    fig = px.scatter(dff, x="GDP per capita, PPP (constant 2017 international $)",
+                     y="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)",
+                     color="sub-region",
+                     size="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)",
+                     hover_data="Entity",
+                     title=f"Scatterplot showing Deaths from Diarrhoea cases against GDP per capita," + "<br>" +
+                           f"PPP (constant 2017 international $ for {year_slider}",
+                     labels={"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)": "Deaths"})
+
+    # fig.update_traces(marker_size=10)
+
+    fig.update_layout(transition={"easing": "elastic-out",
+                                  "duration": 50})
+
+    return fig
+
+# 4.2 Heatmap callback
+@app.callback(
+    Output("heat-map-country-year", "figure"),
+    Input("year-slider", "value")
+)
+def update_heatmap(year_slider):
+    dff = df[df["Year"] == year_slider]
+
+    fig = px.treemap(dff, names="Entity", path=["sub-region", "Entity"],
+                     values="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)",
+                     color="Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)", hover_name="Year",
+                     hover_data="GDP per capita, PPP (constant 2017 international $)",
+                     color_continuous_scale=px.colors.sequential.Plasma,
+                     color_continuous_midpoint=np.average(
+                         dff["Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)"],
+                         weights=dff["GDP per capita, PPP (constant 2017 international $)"]),
+                     title=f"Treemap Chart showing deaths from diarrhoeal diseases" + "<br>" +
+                           f"for children <5 years in {year_slider}",
+                     labels={"Deaths - Diarrheal diseases - Sex: Both - Age: Under 5 (Rate)": "Deaths"})
+
+    fig.update_layout(transition={"easing": "elastic-out",
+                                  "duration": 50},
+                      margin={"t": 50, "l": 25, "r": 25, "b": 25})
 
     return fig
 
